@@ -26,9 +26,9 @@ auth = Auth(db, controller="initial", function="user")
 #settings
 auth.settings.remember_me_form = False
 auth.settings.formstyle = "divs"
-auth.settings.login_next = URL('initial', 'home')
-auth.settings.registration_requires_verification = True
-auth.settings.registration_requires_approval = True
+auth.settings.login_next = URL('initial', 'show_usuario')
+auth.settings.registration_requires_verification = False
+auth.settings.registration_requires_approval = False
 #auth.settings.actions_disabled = ['register']
 
 #mail
@@ -46,7 +46,7 @@ def notifica(form):
 		message="<html>Voce tem um novo usuario para aprovacao %(first_name)s %(last_name)s </html>" % form.vars
 	)
 
-auth.settings.register_onaccept = notifica
+#auth.settings.register_onaccept = notifica
 #auth.settings.register_onaccept = funcao
 
 #messages

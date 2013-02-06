@@ -43,6 +43,10 @@ def _():
     ctr = request.controller
     # useful links to internal and external resources
     response.menu += [
-
-    	]
+        (SPAN('Admin', _class='highlighted'), False, 'http://web2py.com', [
+        (T('Usuários'), False, URL('projeto', 'manager', 'users')),
+        (T('Grupos'), False, URL('projeto', 'manager', 'groups')),
+        (T('Membros'), False, URL('projeto', 'manager', 'membership'))
+                ]
+         )]
 if DEVELOPMENT_MENU: _()

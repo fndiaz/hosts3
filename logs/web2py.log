@@ -62,3 +62,11 @@ SyntaxError: invalid syntax
     version = regex_version.match(self.args(0))
 TypeError: expected string or buffer
 
+2013-02-06 08:57:12,126 - web2py - WARNING - import IPython error; use default python shell
+2013-02-06 11:34:48,804 - web2py.rewrite - ERROR - /var/www/hosts3/routes.py has a syntax error and will not be loaded
+Traceback (most recent call last):
+  File "/var/www/hosts3/gluon/rewrite.py", line 327, in load
+    exec (data + '\n') in symbols
+  File "<string>", line 11
+SyntaxError: non-keyword arg after keyword arg
+

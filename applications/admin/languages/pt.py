@@ -240,6 +240,7 @@
 'previous 100 rows': '100 registros anteriores',
 'Private files': 'Private files',
 'private files': 'private files',
+'Project Progress': 'Project Progress',
 'Query:': 'Consulta:',
 'record': 'registro',
 'record does not exist': 'o registro não existe',
