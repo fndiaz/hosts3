@@ -1,0 +1,137 @@
+timestamp: 2013-01-23T15:44:30.828856
+CREATE TABLE blog(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title CHAR(512) NOT NULL UNIQUE,
+    description TEXT
+);
+success!
+timestamp: 2013-01-23T15:56:37.888157
+CREATE TABLE category(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!
+timestamp: 2013-01-23T15:56:38.057802
+CREATE TABLE post(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    blog INTEGER REFERENCES blog (id) ON DELETE CASCADE,
+    title CHAR(512) NOT NULL,
+    slug CHAR(512),
+    post_body TEXT,
+    post_date TIMESTAMP,
+    is_draft CHAR(1),
+    tags TEXT,
+    category TEXT
+);
+success!
+timestamp: 2013-01-24T09:39:45.364293
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2013-01-24T09:39:45.540738
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2013-01-24T09:39:45.715759
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2013-01-24T09:39:45.859700
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2013-01-24T09:39:46.092715
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2013-01-24T09:39:46.254560
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2013-01-24T10:35:05.952800
+ALTER TABLE auth_user ADD bio TEXT;
+timestamp: 2013-01-24T10:37:00.006340
+ALTER TABLE auth_user ADD photo CHAR(512);
+timestamp: 2013-01-24T10:43:21.604874
+ALTER TABLE auth_user ADD gender CHAR(512);
+timestamp: 2013-01-24T16:46:47.154303
+ALTER TABLE auth_user ADD username CHAR(128);
+timestamp: 2013-01-28T10:46:31.923073
+CREATE TABLE cliente(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome CHAR(512) NOT NULL UNIQUE,
+    email CHAR(512) UNIQUE
+);
+success!
+timestamp: 2013-01-28T12:45:56.738835
+ALTER TABLE cliente ADD modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE;
+timestamp: 2013-01-28T12:45:56.869137
+ALTER TABLE cliente ADD is_active CHAR(1);
+timestamp: 2013-01-28T12:45:56.993073
+ALTER TABLE cliente ADD created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE;
+timestamp: 2013-01-28T12:45:57.119325
+ALTER TABLE cliente ADD created_on TIMESTAMP;
+timestamp: 2013-01-28T12:45:57.243215
+ALTER TABLE cliente ADD modified_on TIMESTAMP;
+timestamp: 2013-01-28T15:13:26.391793
+CREATE TABLE servidor(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome CHAR(512)
+);
+success!
+timestamp: 2013-01-28T15:40:18.845838
+CREATE TABLE distro(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome CHAR(512),
+    img CHAR(512)
+);
+success!
+timestamp: 2013-01-28T15:52:19.146750
+ALTER TABLE distro ADD imagem CHAR(512);
+timestamp: 2013-01-28T16:25:51.201140
+CREATE TABLE hosts(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_cliente INTEGER REFERENCES cliente (id) ON DELETE CASCADE,
+    id_servidor INTEGER REFERENCES servidor (id) ON DELETE CASCADE,
+    id_distro INTEGER REFERENCES distro (id) ON DELETE CASCADE,
+    nome CHAR(512),
+    servicos CHAR(512)
+);
+success!
+timestamp: 2013-01-30T09:20:07.585071
+CREATE TABLE product(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    color INTEGER
+);
+success!
