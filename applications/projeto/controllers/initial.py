@@ -36,9 +36,11 @@ def show_cliente():
 	db.args=Cliente.id.readable=False
 	grid = SQLFORM.grid(Cliente,
 		user_signature=True, searchable=True, csv=False, 
-		paginate=50, deletable=True, editable=True, 
-		details=False, ignore_rw = True, maxtextlength=26,
-		create=auth.has_membership("admin"),  
+		paginate=50, details=False, 
+		ignore_rw = True, maxtextlength=26,
+		create=auth.has_membership("admin"),
+		editable=auth.has_membership("admin"),
+		deletable=auth.has_membership("admin"),  
     	links = [lambda row: A('hosts', _class='btn', 
 			_title='ver servidores', 
 			_href=URL("initial", "/cliente_host", 
@@ -52,8 +54,11 @@ def show_servidor():
 	db.args=Servidor.id.readable=False
 	grid = SQLFORM.grid(Servidor,
 		user_signature=True, searchable=True, csv=False,
-		paginate=50, deletable=True, editable=True, 
-		details=False, ignore_rw = True, maxtextlength=26,  
+		paginate=50, details=False, 
+		ignore_rw = True, maxtextlength=26,
+		create=auth.has_membership("admin"),
+		editable=auth.has_membership("admin"),
+		deletable=auth.has_membership("admin"),  
     	links = [lambda row: A('hosts', _class='btn', 
     		_title='ver servidores', _href=URL("initial", "/servidor_host", vars=dict(f=row.id)))]
 		)
@@ -68,8 +73,11 @@ def show_distro():
 	db.args=Distro.img.readable=False
 	grid = SQLFORM.grid(Distro,
 		user_signature=True, searchable=True, csv=False,
-		paginate=50, deletable=True, editable=True, 
-		details=False, ignore_rw = True, maxtextlength=26, links_placement='left',  
+		paginate=50, details=False, ignore_rw = True, 
+		maxtextlength=26, links_placement='left',
+		create=auth.has_membership("admin"),
+		editable=auth.has_membership("admin"),
+		deletable=auth.has_membership("admin"),  
     	links = [lambda row: A('hosts', 
     		_class='btn', 
     		_title='ver servidores', 
@@ -138,7 +146,7 @@ def distro_host():
 	response.title = distro[0][0]	
 	
 	db.hosts.id.readable=False
-	db.distro.img.readable=False
+	db.distro.img.readable=True
 	query = ((db.hosts.id_distro == filtro) & (db.distro.id == db.hosts.id_distro))
 	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) )))]
 
