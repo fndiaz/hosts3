@@ -95,7 +95,12 @@ def cliente_host():
 	
 
 	query = ((db.hosts.id_cliente == filtro) & (db.distro.id == db.hosts.id_distro))
-	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) )))]
+	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) ))), 
+	lambda row: A('detalhes', 
+    		_class='btn', 
+    		_title='ver servidores', 
+    		_href=URL("initial", "/detalhes_host", 
+    		vars=dict(f=row.hosts.id)))]
 	db.hosts.id.readable=False
 	db.distro.img.readable=False
 	
@@ -162,10 +167,18 @@ def distro_host():
 
 	return response.render("initial/show_grid.html", grid=grid)
 
-
-
-
 def exemplo():
+	filtro = request.vars['f']
+	#detalhes = db.executesql('SELECT * FROM hosts WHERE id = %s;' %str(filtro))
+	detalhes = db.hosts(db.hosts.id == filtro)
+	#response.title = detalhes[0][0]
+
+	return response.render("initial/detalhes_host.html", detalhes=detalhes)
+
+
+
+
+def exemploo():
 #	return "teste"
 	return response.render("default/teste.html", nome="fernando", 
 		sobrenome="vieira", lista=["item1", "item2", "item3"])
