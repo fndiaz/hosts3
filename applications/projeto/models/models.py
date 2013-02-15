@@ -11,6 +11,7 @@ Servidor = db.define_table("servidor",
 Distro = db.define_table("distro",
       Field("nome"),
       Field("img"),
+      Field("imagem"),
       format="%(nome)s")
 
 Hosts = db.define_table("hosts",
@@ -18,5 +19,18 @@ Hosts = db.define_table("hosts",
       Field("id_servidor", db.servidor),
       Field("id_distro", db.distro),
       Field("nome"),
-      Field("servicos")
-      )
+      Field("ip_chegada"),
+      Field("porta_ssh"),
+      Field("gateway"),
+      Field("servicos"),
+      format="%(nome)s")
+
+Interface = db.define_table("interface",
+      Field("id_hosts", db.hosts),
+      Field("nome"),
+      Field("ip"),
+      format="%(nome)s")
+
+
+
+

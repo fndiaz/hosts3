@@ -14,7 +14,7 @@ def about():
 def user():
 	if request.args(0) == 'register':
         	db.auth_user.bio.writable = db.auth_user.bio.readable = False
-	return dict(user=auth())
+	return response.render("initial/user.html", user=auth())
 
 def register():
 	return auth.register()
@@ -87,6 +87,8 @@ def show_distro():
 		)
 	return response.render("initial/show_grid.html", grid=grid)
 
+
+
 @auth.requires_login()
 def cliente_host():
 	filtro = request.vars['f']
@@ -96,23 +98,30 @@ def cliente_host():
 
 	query = ((db.hosts.id_cliente == filtro) & (db.distro.id == db.hosts.id_distro))
 	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) ))), 
-	lambda row: A('detalhes', 
-    		_class='btn', 
-    		_title='ver servidores', 
-    		_href=URL("initial", "/detalhes_host", 
-    		vars=dict(f=row.hosts.id)))]
+	 lambda row: A('Detalhes', 
+    		      _class='btn', 
+    		      _title='Detalhes', 
+    		      _href=URL("initial", "/exemplo", 
+    		      vars=dict(f=row.hosts.id))),
+	 lambda row: A('Editar', 
+    		      _class='btn', 
+    		      _title='Editar', 
+    		      _href=URL("initial", "/edit_host", 
+    		      args=(row.hosts.id)))]
 	db.hosts.id.readable=False
 	db.distro.img.readable=False
+	db.distro.id.readable=False
 	
-	fields = (db.hosts.id, db.hosts.id_servidor, db.hosts.id_distro, db.distro.img, 
-				db.hosts.servicos, db.hosts.nome)
+	fields = (db.hosts.id, db.hosts.id_servidor, db.hosts.id_distro, db.distro.img, db.distro.id,
+			  db.hosts.servicos, db.hosts.nome)
 	headers = {'host.id':   'ID',
-           'host.id_servidor': 'Servidor',
-           'host.id_distro': 'Distro',
-          'host.nome': 'Nome',
-	   'host.servicos': 'Servicos'}
-	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
-						details=False, maxtextlength=23, links=links, links_placement='left')
+               'host.id_servidor': 'Servidor',
+               'host.id_distro': 'Distro',
+               'host.nome': 'Nome',
+	           'host.servicos': 'Servicos'}
+	grid = SQLFORM.grid(query=query, fields=fields, csv=False,
+						details=False, maxtextlength=23, links=links, 
+						links_placement='left', editable=False)
 
 	return response.render("initial/show_grid.html", grid=grid)
 
@@ -135,10 +144,10 @@ def servidor_host():
 	fields = (db.hosts.id, db.hosts.id_servidor, db.hosts.id_distro, db.distro.img, 
 				db.hosts.servicos, db.hosts.nome)
 	headers = {'host.id':   'ID',
-           'host.id_servidor': 'Servidor',
-           'host.id_distro': 'Distro',
-          'host.nome': 'Nome',
-	   'host.servicos': 'Servicos'}
+               'host.id_servidor': 'Servidor',
+               'host.id_distro': 'Distro',
+               'host.nome': 'Nome',
+	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, maxtextlength=23, links=links, links_placement='left')
 
@@ -156,12 +165,12 @@ def distro_host():
 	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) )))]
 
 	fields = (db.hosts.id, db.hosts.id_servidor, db.hosts.id_distro, db.distro.img, 
-				db.hosts.servicos, db.hosts.nome)
+			  db.hosts.servicos, db.hosts.nome)
 	headers = {'host.id':   'ID',
-           'host.id_servidor': 'Servidor',
-           'host.id_distro': 'Distro',
-          'host.nome': 'Nome',
-	   'host.servicos': 'Servicos'}
+               'host.id_servidor': 'Servidor',
+               'host.id_distro': 'Distro',
+               'host.nome': 'Nome',
+	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, maxtextlength=23, links=links, links_placement='left')
 
@@ -169,12 +178,38 @@ def distro_host():
 
 def exemplo():
 	filtro = request.vars['f']
-	#detalhes = db.executesql('SELECT * FROM hosts WHERE id = %s;' %str(filtro))
-	detalhes = db.hosts(db.hosts.id == filtro)
+	#detalhes = db.hosts(db.hosts.id == filtro)
 	#response.title = detalhes[0][0]
 
+	query = ((db.hosts.id == filtro) & (db.hosts.id_cliente == db.cliente.id)
+	 	    & (db.hosts.id_servidor == db.servidor.id) 
+	 	    & (db.hosts.id_distro == db.distro.id)) 
+	detalhes = db.hosts(query)
+
+	query2 =  ((db.interface.id_hosts == filtro))
+	rows = db.interface(query2)
+	print rows
+
+	fruits = ['banana', 'apple',  'mango']
+	for fruit in fruits:        
+   		print 'Current fruit :', fruit
+
+
+	if detalhes.hosts.gateway == None:
+		print "ok"
+	else:
+		print "false"
+	
 	return response.render("initial/detalhes_host.html", detalhes=detalhes)
 
+def edit_host():
+	response.view = 'initial/show_form.html'
+	return dict(form=SQLFORM(db.hosts, request.args(0, cast=int)).process())
+
+
+def interface():
+	response.view = 'initial/show_form.html'
+	return dict(form=SQLFORM(db.interface).process())
 
 
 
@@ -183,7 +218,7 @@ def exemploo():
 	return response.render("default/teste.html", nome="fernando", 
 		sobrenome="vieira", lista=["item1", "item2", "item3"])
 
-def teste1():
+def teste11():
 	print "Action index"
 	print request.args
 	print request.vars 	

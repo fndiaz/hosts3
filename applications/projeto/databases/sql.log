@@ -135,3 +135,20 @@ CREATE TABLE product(
     color INTEGER
 );
 success!
+timestamp: 2013-02-15T09:27:40.729676
+ALTER TABLE hosts ADD porta_ssh CHAR(512);
+timestamp: 2013-02-15T09:27:40.879693
+ALTER TABLE hosts ADD gateway CHAR(512);
+timestamp: 2013-02-15T09:27:41.000078
+ALTER TABLE hosts ADD ip_chegada CHAR(512);
+timestamp: 2013-02-15T11:10:33.351096
+CREATE TABLE interface(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome CHAR(512),
+    ip CHAR(512)
+);
+success!
+timestamp: 2013-02-15T11:10:33.528701
+ALTER TABLE hosts ADD id_interface INTEGER REFERENCES interface (id) ON DELETE CASCADE;
+timestamp: 2013-02-15T11:13:22.527606
+ALTER TABLE interface ADD id_hosts INTEGER REFERENCES hosts (id) ON DELETE CASCADE;

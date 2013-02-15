@@ -2,13 +2,30 @@
 
 
 {{block center}}
-<h3>Detalhes</h3>
+<div class="span5" >
 <div class="well">
-<p><b>Nome</b>:&nbsp;&nbsp;{{=detalhes.nome}}</p>
-<p><b>Serviços</b>:&nbsp;&nbsp;{{=detalhes.servicos}}</p>
-<p><b>Cliente</b>:&nbsp;&nbsp;{{=detalhes.id_cliente}}</p>
-<p><b>Serviços</b>:&nbsp;&nbsp;{{=detalhes.id_servidor}}</p>
-<p><b>Serviços</b>:&nbsp;&nbsp;{{=detalhes}}</p>
+<h3><img src="{{=URL('static', 'images', args=(detalhes.distro.imagem))}}">	
+<span style="color: black;">{{=detalhes.distro.nome}}</span></h3></br>
+<p><b>Nome</b>:&nbsp;&nbsp;{{=detalhes.hosts.nome}}</p>
+<p><b>Servidor</b>:&nbsp;&nbsp;{{=detalhes.servidor.nome}}</p>
+<p><b>Cliente</b>:&nbsp;&nbsp;{{=detalhes.cliente.nome}}</p>
 
 </div>
+</div>
+
+<div class="span5" style="float: right;">
+<div class="well">
+<h2><span style="color: black;">Detalhes</span></h2></br>
+<p><b>Nome</b>:&nbsp;&nbsp;{{=detalhes.hosts.nome}}</p>
+<p><b>Serviços</b>:&nbsp;&nbsp;{{=detalhes.hosts.servicos}}</p>
+<p><b>Cliente</b>:&nbsp;&nbsp;{{=detalhes.hosts.id_cliente}}</p>
+<p><b>Serviços</b>:&nbsp;&nbsp;{{=detalhes.hosts.id_servidor}}</p>
+</div>
+</div>
+
+<div class="span11" >
+	<div class="well">
+	{{=detalhes}}
+	<div>
+<div>
 {{end}}
