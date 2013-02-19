@@ -186,14 +186,15 @@ def exemplo():
 	 	    & (db.hosts.id_distro == db.distro.id)) 
 	detalhes = db.hosts(query)
 
-	query2 =  ((db.interface.id_hosts == filtro))
-	rows = db.interface(query2)
-	print rows
+	#query2 =  (db.interface.id_hosts == 2)
+	#rows = db.interface(query2)
+	#print rows
 
-	fruits = ['banana', 'apple',  'mango']
-	for fruit in fruits:        
-   		print 'Current fruit :', fruit
+	aqui = db.executesql('SELECT * FROM interface WHERE id_hosts = %s;' %str(filtro))
+	print aqui
 
+   	for a in aqui:        
+   		print 'interface:',a[1], '  ip:',a[2]
 
 	if detalhes.hosts.gateway == None:
 		print "ok"
