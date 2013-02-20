@@ -185,22 +185,11 @@ def exemplo():
 	 	    & (db.hosts.id_servidor == db.servidor.id) 
 	 	    & (db.hosts.id_distro == db.distro.id)) 
 	detalhes = db.hosts(query)
+	#print 'query', query
 
-	#query2 =  (db.interface.id_hosts == 2)
-	#rows = db.interface(query2)
-	#print rows
-
-	aqui = db.executesql('SELECT * FROM interface WHERE id_hosts = %s;' %str(filtro))
-	print aqui
-
-   	for a in aqui:        
-   		print 'interface:',a[1], '  ip:',a[2]
-
-	if detalhes.hosts.gateway == None:
-		print "ok"
-	else:
-		print "false"
-	
+	#query2 =  (db.interface.id_hosts == filtro)
+	#print 'query2', query2
+	#queryset = db(query2)	
 	return response.render("initial/detalhes_host.html", detalhes=detalhes)
 
 def edit_host():

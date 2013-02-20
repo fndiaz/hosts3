@@ -2,5 +2,11 @@
 
 
 {{block center}}
+{{arg = request.args[0]}}
+<ul class="breadcrumb">
+        <li><a href="{{=URL('initial', '/show_cliente')}}">Clientes</a> <span class="divider">/</span></li>
+        <li><a href="{{=URL('initial', '/cliente_host', vars=dict(f=arg))}}">Library</a> <span class="divider">/</span></li>
+        <li class="active">Data</li>
+      </ul>
 {{=form}}
 {{end}}
