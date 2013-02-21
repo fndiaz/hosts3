@@ -2,6 +2,11 @@
 
 
 {{block center}}
+<ul class="breadcrumb">
+        <li><a href="{{=URL('initial', funcao_ant1)}}">{{=nome_ant1}}</a> <span class="divider">/</span></li>
+        <li><a href="{{=URL('initial', funcao_ant, vars=dict(f=id_cliente, n1=nome_ant1, p1=funcao_ant1))}}">{{=nome_ant}}</a> <span class="divider">/</span></li>
+        <li>Detalhes</li>
+      </ul>
 
 <div class="span5" >
 <div class="well">
@@ -115,7 +120,7 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
@@ -132,7 +137,7 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
@@ -149,7 +154,7 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>			    
@@ -166,7 +171,7 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
