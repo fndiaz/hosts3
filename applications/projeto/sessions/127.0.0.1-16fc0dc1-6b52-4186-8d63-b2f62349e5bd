@@ -43,7 +43,7 @@ p20
 cdatetime
 datetime
 p21
-(S'\x07\xdd\x02\x15\x114\t\x0f1\xa7'
+(S'\x07\xdd\x02\x15\x12\x08\x02\x03Ep'
 tRp22
 sS'user'
 p23
@@ -107,7 +107,7 @@ I3600
 stRp49
 sS'_web2py_grid_referrer_web2py_grid'
 p50
-S'/?_signature=6d56646042e2182f65e71e353d6b4f994693051b'
+S'/cliente_host?f=1&n1=Clientes&p1=show_cliente&_signature=ddbc51409e41c603e9e8868fc524299129322bb0'
 p51
 sS'_formkey[hosts/create]'
 p52
@@ -162,7 +162,7 @@ S'bb2234c9-82d0-4150-b889-28df0fef4bbf'
 p76
 sS'_session_hash'
 p77
-S'41cba47cb11b5fab0912edc07bdb3bd3'
+S'2c9c859187d12fed92e2e8bd7c6ac0b1'
 p78
 sS'_formkey[login]'
 p79

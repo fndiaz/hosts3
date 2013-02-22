@@ -27,7 +27,8 @@ response.google_analytics_id = None
 response.menu = [
     (T('Clientes'), False, URL("initial", "show_cliente"), []),
     (T('Servidores'), False, URL("initial", "show_servidor"), []),
-    (T('Distros'), False, URL("initial", "show_distro"), [])
+    (T('Distros'), False, URL("initial", "show_distro"), []),
+    (T('+host'), False, URL("initial", "interface"), [])
 ]
 
 

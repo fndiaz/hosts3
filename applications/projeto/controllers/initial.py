@@ -79,12 +79,14 @@ def cliente_host():
     		      _class='btn', 
     		      _title='Detalhes', 
     		      _href=URL("initial", "/exemplo", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=cliente.nome, n1='Clientes', p1='show_cliente', p='cliente_host'))),
+    		      vars=dict(f=row.hosts.id, c=filtro, n=cliente.nome, 
+    		      			n1='Clientes', p1='show_cliente', p='cliente_host'))),
 	 lambda row: A('Editar', 
     		      _class='btn', 
     		      _title='Editar', 
     		      _href=URL("initial", "/edit_host", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=cliente.nome, n1='Clientes', p1='show_cliente', p='cliente_host')))]
+    		      vars=dict(f=row.hosts.id, c=filtro, n=cliente.nome, 
+    		      		n1='Clientes', p1='show_cliente', p='cliente_host')))]
 	db.hosts.id.readable=False
 	db.distro.img.readable=False
 	
@@ -97,7 +99,7 @@ def cliente_host():
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, csv=False,
 						details=False, maxtextlength=23, links=links, 
-						links_placement='left', editable=False)
+						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
 						funcao_ant1=funcao_ant1, nome_atual=nome_atual)
@@ -117,20 +119,20 @@ def servidor_host():
 	db.distro.img.readable=False
 	db.hosts.id.readable=False
 	query = ((db.hosts.id_servidor == filtro) & (db.distro.id == db.hosts.id_distro))
-	
-	print query
 
 	links = [dict(header='',body=lambda row: A( IMG(_src=URL("static", "images", args=(row.distro.img)) ))), 
 	 lambda row: A('Detalhes', 
     		      _class='btn', 
     		      _title='Detalhes', 
     		      _href=URL("initial", "/exemplo", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=servidor.nome, n1='Servidores', p1='show_servidor', p='servidor_host'))),
+    		      vars=dict(f=row.hosts.id, c=filtro, n=servidor.nome, 
+    		      		n1='Servidores', p1='show_servidor', p='servidor_host'))),
 	 lambda row: A('Editar', 
     		      _class='btn', 
     		      _title='Editar', 
     		      _href=URL("initial", "/edit_host", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=servidor.nome, n1='Servidores', p1='show_servidor', p='servidor_host')))]
+    		      vars=dict(f=row.hosts.id, c=filtro, n=servidor.nome, 
+    		      		n1='Servidores', p1='show_servidor', p='servidor_host')))]
 
 	fields = (db.hosts.id, db.hosts.id_cliente, db.hosts.id_distro, db.distro.img, 
 				db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
@@ -141,7 +143,7 @@ def servidor_host():
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, maxtextlength=23, links=links, 
-						links_placement='left', editable=False)
+						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
 						funcao_ant1=funcao_ant1, nome_atual=nome_atual)
@@ -166,12 +168,14 @@ def distro_host():
     		      _class='btn', 
     		      _title='Detalhes', 
     		      _href=URL("initial", "/exemplo", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=distro.nome, n1='Distros', p1='show_distro', p='distro_host'))),
+    		      vars=dict(f=row.hosts.id, c=filtro, n=distro.nome, 
+    		      		n1='Distros', p1='show_distro', p='distro_host'))),
 	 lambda row: A('Editar', 
     		      _class='btn', 
     		      _title='Editar', 
     		      _href=URL("initial", "/edit_host", 
-    		      vars=dict(f=row.hosts.id, c=filtro, n=distro.nome, n1='Distros', p1='show_distro', p='distro_host')))]
+    		      vars=dict(f=row.hosts.id, c=filtro, n=distro.nome, 
+    		      		n1='Distros', p1='show_distro', p='distro_host')))]
 
 	fields = (db.hosts.id, db.hosts.id_cliente, db.hosts.id_servidor, db.distro.img, 
 			  db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
@@ -182,18 +186,18 @@ def distro_host():
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, maxtextlength=23, links=links, 
-						links_placement='left', editable=False)
+						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
 						funcao_ant1=funcao_ant1, nome_atual=nome_atual)
 
 def exemplo():
-	filtro = request.vars['f']
-	id_cliente = request.vars['c']
-	nome_ant = request.vars['n']
-	nome_ant1 = request.vars['n1']
-	funcao_ant = request.vars['p']
-	funcao_ant1 = request.vars['p1']
+	filtro = request.vars['f'] #id_host
+	id_cliente = request.vars['c'] #id_cliente
+	nome_ant = request.vars['n'] #nome (asterisk ou agronelli ou debian)
+	nome_ant1 = request.vars['n1'] #nome (servidores ou clientes ou distros)
+	funcao_ant = request.vars['p'] #funcao(host_servidores)
+	funcao_ant1 = request.vars['p1'] #funcao(show_servidores)
 	
 
 	query = ((db.hosts.id == filtro) & (db.hosts.id_cliente == db.cliente.id)
@@ -213,20 +217,21 @@ def edit_host():
 	funcao_ant = request.vars['p']
 	funcao_ant1 = request.vars['p1']
 
-	
 	response.view = 'initial/show_form.html'
 	return dict(form=SQLFORM(db.hosts, request.vars['f']).process(), 
 				id_cliente=id_cliente, funcao_ant=funcao_ant, funcao_ant1=funcao_ant1, 
 					nome_ant=nome_ant, nome_ant1=nome_ant1)
 
+
+@auth.requires_login()
 def interface():
 	response.view = 'initial/show_form2.html'
 	return dict(form=SQLFORM(db.hosts, request.vars['f']).process())
 
 
 def interfaceee():
-	response.view = 'initial/show_form.html'
-	return dict(form=SQLFORM(db.interface).process())
+	response.view = 'initial/show_form2.html'
+	return dict(form=SQLFORM(db.hosts).process())
 
 
 def home():
@@ -237,8 +242,9 @@ def home():
 def contact():
 	return "form"
 
-def aboutt():
-	return "sobre"
+def about():
+	teste = 'aa'
+	return response.render("initial/teste.html", teste=teste)
 
 def user():
 	if request.args(0) == 'register':

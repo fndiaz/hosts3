@@ -2,6 +2,17 @@
 
 
 {{block center}}
+{{
+	
+	id_cliente = request.vars['c']
+	id_host = request.vars['f']
+	nome_funcao = request.vars['n']
+	nome_funcao1 = request.vars['n1']
+	funcao = request.vars['p']
+	funcao1 = request.vars['p1']
+}}
+
+
 <ul class="breadcrumb">
         <li><a href="{{=URL('initial', funcao_ant1)}}">{{=nome_ant1}}</a> <span class="divider">/</span></li>
         <li><a href="{{=URL('initial', funcao_ant, vars=dict(f=id_cliente, n1=nome_ant1, p1=funcao_ant1))}}">{{=nome_ant}}</a> <span class="divider">/</span></li>
@@ -26,78 +37,6 @@
 <p><b>Gateway</b>:&nbsp;&nbsp;{{=detalhes.hosts.gateway}}</p>
 </div>
 </div>
-<!--
-<div class="span5">
-<div class="well">
-	{{
-	if detalhes.hosts.if1 != "" or None:
-		}}<h4><span style="color: black;">{{=detalhes.hosts.if1}}</span></h4>
-	<p><b>IP</b>:&nbsp;&nbsp;{{=detalhes.hosts.ip1}}</p>
-	<p><b>Máscara</b>:&nbsp;&nbsp;{{=detalhes.hosts.masc1}}</p>
-	<p><b>Obs</b>:&nbsp;&nbsp;{{=detalhes.hosts.obs1}}</p>{{
-	
-	else:
-	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
-	pass
-	}}
-	
-
-</div>
-</div>
-
-<div class="span5">
-<div class="well">
-	{{
-	if detalhes.hosts.if2 != "" or None:
-		}}<h4><span style="color: black;">{{=detalhes.hosts.if2}}</span></h4>
-	<p><b>IP</b>:&nbsp;&nbsp;{{=detalhes.hosts.ip2}}</p>
-	<p><b>Máscara</b>:&nbsp;&nbsp;{{=detalhes.hosts.masc2}}</p>
-	<p><b>Obs</b>:&nbsp;&nbsp;{{=detalhes.hosts.obs2}}</p>{{
-	
-	else:
-	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
-	pass
-	}}
-
-</div>
-</div>
-
-<div class="span5">
-<div class="well">
-	{{
-	if detalhes.hosts.if3 != "" or None:
-		}}<h4><span style="color: black;">{{=detalhes.hosts.if3}}</span></h4>
-	<p><b>IP</b>:&nbsp;&nbsp;{{=detalhes.hosts.ip3}}</p>
-	<p><b>Máscara</b>:&nbsp;&nbsp;{{=detalhes.hosts.masc3}}</p>
-	<p><b>Obs</b>:&nbsp;&nbsp;{{=detalhes.hosts.obs3}}</p>{{
-	
-	else:
-	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
-	pass
-	}}
-
-</div>
-</div>
-
-<div class="span5">
-<div class="well">
-	{{
-	if detalhes.hosts.if4 != "" or None:
-		}}<h4><span style="color: black;">{{=detalhes.hosts.if4}}</span></h4>
-	<p><b>IP</b>:&nbsp;&nbsp;{{=detalhes.hosts.ip4}}</p>
-	<p><b>Máscara</b>:&nbsp;&nbsp;{{=detalhes.hosts.masc4}}</p>
-	<p><b>Obs</b>:&nbsp;&nbsp;{{=detalhes.hosts.obs4}}</p>{{
-	
-	else:
-	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="#">Adicione</a></p>{{	
-	pass
-	}}
-</div>
-</div><br><br>-->
 
 <div class="span10"><br><br>
 <div class="tabbable tabs-left">
@@ -120,7 +59,8 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'edit_host', 
+	vars=dict(f=filtro, c=id_cliente, n=nome_funcao, n1=nome_funcao1, p1=funcao1, p=funcao))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
@@ -137,7 +77,8 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'edit_host', 
+	vars=dict(f=filtro, c=id_cliente, n=nome_funcao, n1=nome_funcao1, p1=funcao1, p=funcao))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
@@ -154,7 +95,8 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'edit_host', 
+	vars=dict(f=filtro, c=id_cliente, n=nome_funcao, n1=nome_funcao1, p1=funcao1, p=funcao))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>			    
@@ -171,7 +113,8 @@
 	
 	else:
 	}}<p style="text-align: center;">Aninda não existe uma interface de rede aqui!</p><br><br><br>
-	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'interface', vars=dict(f=filtro))}}">Adicione</a></p>{{	
+	<p style="text-align: center;"><a class="btn" href="{{=URL('initial', 'edit_host', 
+	vars=dict(f=filtro, c=id_cliente, n=nome_funcao, n1=nome_funcao1, p1=funcao1, p=funcao))}}">Adicione</a></p>{{	
 	pass
 	}}
 </div>
