@@ -1,28 +1,23 @@
 Cliente = db.define_table("cliente",
       Field("nome", notnull=True, unique=True),
-      Field("email", unique=True),
+      Field("email"),
       #auth.signature
       format="%(nome)s")
 
 Servidor = db.define_table("servidor",
-      Field("nome"),
+      Field("nome", notnull=True),
       format="%(nome)s")
 
 Distro = db.define_table("distro",
-      Field("nome"),
-      Field("img"),
-      Field("imagem"),
+      Field("nome", notnull=True),
+      Field("img", notnull=True),
+      Field("imagem", notnull=True),
       format="%(nome)s")
 
 Hosts = db.define_table("hosts",
       Field("id_cliente", db.cliente),
       Field("id_servidor", db.servidor),
       Field("id_distro", db.distro),
-      Field("nome"),
-      Field("ip_chegada"),
-      Field("porta_ssh"),
-      Field("gateway"),
-      Field("vpn"),
       Field("servicos", "text"),
       Field("if1"),
       Field("ip1"),
@@ -40,6 +35,10 @@ Hosts = db.define_table("hosts",
       Field("ip4"),
       Field("masc4"),
       Field("obs4"),
+      Field("nome", notnull=True),
+      Field("ip_chegada", notnull=True),
+      Field("porta_ssh", notnull=True),
+      Field("gateway", notnull=True),
       Field("rotas", "text"),
       Field("obs_gerais", "text"),
       format="%(nome)s")

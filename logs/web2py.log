@@ -70,3 +70,7 @@ Traceback (most recent call last):
   File "<string>", line 11
 SyntaxError: non-keyword arg after keyword arg
 
+2013-02-27 16:21:31,342 - Rocket.Errors.Port8000 - ERROR - Socket eth0:8000 in use by other process and it won't share.
+2013-02-27 16:21:36,606 - Rocket.Errors.Port8000 - WARNING - Listener started when not ready.
+2013-02-27 16:22:04,614 - Rocket.Errors.Port8000 - ERROR - Socket nterface=eth0:8000 in use by other process and it won't share.
+2013-02-27 16:22:07,888 - Rocket.Errors.Port8000 - WARNING - Listener started when not ready.

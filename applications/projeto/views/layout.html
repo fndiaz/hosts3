@@ -135,7 +135,7 @@
                 <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
                 <div id="poweredBy" class="pull-right">
                     {{=T('Powered by')}}
-                    <a href="www.google.com">Aldeia Digital</a>
+                    <a href="http://www.aldeiadigital.com.br/">Aldeia Digital</a>
                 </div>
                 {{end}}
             </div>
@@ -160,6 +160,6 @@
     'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
   });</script>
   {{pass}}
-  <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
+  <!--<script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>-->
 </body>
 </html>

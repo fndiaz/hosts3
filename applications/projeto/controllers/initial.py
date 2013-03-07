@@ -68,6 +68,7 @@ def cliente_host():
 	rows = queryset.select()
 	cliente = rows[0]
 	response.title = cliente.nome
+	print cliente
 
 	nome_ant1 = request.vars['n1']
 	funcao_ant1 = request.vars['p1']
@@ -98,7 +99,7 @@ def cliente_host():
                'host.nome': 'Nome',
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, csv=False,
-						details=False, maxtextlength=23, links=links, 
+						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
@@ -142,7 +143,7 @@ def servidor_host():
                'host.nome': 'Nome',
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
-						details=False, maxtextlength=23, links=links, 
+						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
@@ -185,7 +186,7 @@ def distro_host():
                'host.nome': 'Nome',
 	           'host.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
-						details=False, maxtextlength=23, links=links, 
+						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
@@ -243,8 +244,19 @@ def contact():
 	return "form"
 
 def about():
-	teste = 'aa'
-	return response.render("initial/teste.html", teste=teste)
+	filtro = request.vars['f']
+	query = ((db.hosts.id_servidor == filtro) & (db.distro.id == db.hosts.id_distro))
+	fields = (db.hosts.id, db.hosts.id_cliente, db.hosts.id_distro, db.distro.img, 
+				db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
+	headers = {'host.id':   'ID',
+               'host.id_servidor': 'Servidor',
+               'host.id_distro': 'Distro',
+               'host.nome': 'Nome',
+	           'host.servicos': 'Servicos'}
+	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
+						details=False, maxtextlength=23, searchable=True, editable=False, create=False)
+
+	return response.render("initial/teste.html", grid=grid,)
 
 def user():
 	if request.args(0) == 'register':

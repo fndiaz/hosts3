@@ -6,7 +6,9 @@ config = Storage(
         mail=Storage()
         )
 
-config.db.uri = "sqlite://projeto.sqlite"
+#config.db.uri = "postgres:pg8000://hosts3:yma2578k@69.162.68.171/hosts3"
+config.db.uri = "postgres:pg8000://postgres:123456@127.0.0.1/hosts3_ok"
+#config.db.uri = "sqlite://hosts.sqlite"
 config.db.pool_size = 10
 config.db.check_reserved = ['all']
 
@@ -53,11 +55,11 @@ def notifica(form):
 auth.messages.login_button = "Entrar"
 
 #fields
-auth.settings.extra_fields['auth_user'] = [
-	Field("bio", "text"),
-	Field("photo", "upload"),
-	Field("gender", requires=IS_IN_SET(["masculino","feminino"]))
-]
+#auth.settings.extra_fields['auth_user'] = [
+#	Field("bio", "text"),
+#	Field("photo", "upload"),
+#	Field("gender", requires=IS_IN_SET(["masculino","feminino"]))
+#]
 
 #janrain
 #from gluon.contrib.login_methods.rpx_account import use_janrain
