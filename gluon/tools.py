@@ -890,9 +890,9 @@ class Auth(object):
         password_reset_button='Request reset password',
         password_change_button='Change password',
         profile_save_button='Save profile',
-        submit_button='Submit',
+        submit_button='Confirmar',
         verify_password='Verify Password',
-        delete_label='Check to delete',
+        delete_label='Marque para deletar',
         function_disabled='Function disabled',
         access_denied='Insufficient privileges',
         registration_verifying='Registration needs verification',
@@ -3380,8 +3380,8 @@ class Crud(object):
         settings.lock_keys = True
 
         messages = self.messages = Messages(current.T)
-        messages.submit_button = 'Submit'
-        messages.delete_label = 'Check to delete:'
+        messages.submit_button = 'Confirmar'
+        messages.delete_label = 'Marque para deletar:'
         messages.record_created = 'Record Created'
         messages.record_updated = 'Record Updated'
         messages.record_deleted = 'Record Deleted'

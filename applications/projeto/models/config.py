@@ -32,12 +32,18 @@ auth.settings.login_next = URL('initial', 'show_usuario')
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 #auth.settings.actions_disabled = ['register']
+auth.messages.logged_in = 'Bem Vindo' 
+auth.messages.logged_out = 'Até logo'
+auth.messages.access_denied = 'Acesso negado! Contate o administrador'
+auth.messages.invalid_email = 'email Inválido'
+auth.messages.invalid_login = 'Login Inválido'
 
 #mail
 mail = auth.settings.mailer
 mail.settings.server = "mail.ad2.com.br"
 mail.settings.sender = "fernando@ad2.com.br"
 mail.settings.login = "fernando@ad2.com.br:123456"
+
 
 #signals
 def notifica(form):

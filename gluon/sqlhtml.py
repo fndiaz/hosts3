@@ -895,8 +895,8 @@ class SQLFORM(FORM):
         fields=None,
         labels=None,
         col3={},
-        submit_button='Submit',
-        delete_label='Check to delete',
+        submit_button='Confirmar',
+        delete_label='Check to deletee',
         showid=True,
         readonly=False,
         comments=True,
@@ -1836,7 +1836,7 @@ class SQLFORM(FORM):
                 raise HTTP(200, stream, **response.headers)
 
         def buttons(edit=False, view=False, record=None):
-            buttons = DIV(gridbutton('buttonback', 'Back', referrer),
+            buttons = DIV(gridbutton('buttonback', 'Voltar', referrer),
                           _class='form_header row_buttons %(header)s %(cornertop)s' % ui)
             if edit and (not callable(edit) or edit(record)):
                 args = ['edit', table._tablename, request.args[-1]]
@@ -1910,8 +1910,8 @@ class SQLFORM(FORM):
                 record, upload=upload, ignore_rw=ignore_rw,
                 formstyle=formstyle, deletable=deletable,
                 _class='web2py_form',
-                submit_button=T('Submit'),
-                delete_label=T('Check to delete'),
+                submit_button=T('Confirmar'),
+                delete_label=T('Marque para deletar'),
                 **sqlformargs)
             update_form.process(
                 formname=formname,
@@ -1997,7 +1997,7 @@ class SQLFORM(FORM):
         if create:
             add = gridbutton(
                 buttonclass='buttonadd',
-                buttontext='Add',
+                buttontext='Adicionar',
                 buttonurl=url(args=['new', tablename]))
             if not searchable:
                 console.append(add)
@@ -2019,8 +2019,8 @@ class SQLFORM(FORM):
                     INPUT(_name='keywords', _value=request.vars.keywords,
                           _id=skeywords_id,
                           _onfocus="jQuery('#%s').change();jQuery('#%s').slideDown();" % (spanel_id, sfields_id)),
-                    INPUT(_type='submit', _value=T('Search'), _class="btn"),
-                    INPUT(_type='submit', _value=T('Clear'), _class="btn",
+                    INPUT(_type='submit', _value=T('Pesquisar'), _class="btn"),
+                    INPUT(_type='submit', _value=T('Limpar'), _class="btn",
                           _onclick="jQuery('#%s').val('');" % skeywords_id),
                     _method="GET", _action=url), search_menu)
             form = search_widget and search_widget(sfields, url()) or ''
@@ -2147,9 +2147,9 @@ class SQLFORM(FORM):
         message = error
         if not message and nrows:
             if dbset._db._adapter.dbengine=='google:datastore' and nrows>=1000:
-                message = T('at least %(nrows)s records found') % dict(nrows=nrows)
+                message = T('at least %(nrows)s records foundd') % dict(nrows=nrows)
             else:
-                message = T('%(nrows)s records found') % dict(nrows=nrows)
+                message = T('%(nrows)s registros encontrados') % dict(nrows=nrows)
         console.append(DIV(message,_class='web2py_counter'))
 
         paginator = UL()
@@ -2269,11 +2269,11 @@ class SQLFORM(FORM):
                             url(args=['view', tablename, id])))
                     if editable and (not callable(editable) or editable(row)):
                         row_buttons.append(gridbutton(
-                            'buttonedit', 'Edit',
+                            'buttonedit', 'Editar',
                             url(args=['edit', tablename, id])))
                     if deletable and (not callable(deletable) or deletable(row)):
                         row_buttons.append(gridbutton(
-                            'buttondelete', 'Delete',
+                            'buttondelete', 'Deletar',
                             callback=url(args=['delete', tablename, id]),
                             delete='tr'))
                     if buttons_placement in ['right', 'both']:

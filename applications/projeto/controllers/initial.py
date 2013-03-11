@@ -93,12 +93,13 @@ def cliente_host():
 	
 	fields = (db.hosts.id, db.hosts.id_servidor, db.hosts.id_distro, db.distro.img, 
 			  db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
-	headers = {'host.id':   'ID',
-               'host.id_servidor': 'Servidor',
-               'host.id_distro': 'Distro',
-               'host.nome': 'Nome',
-	           'host.servicos': 'Servicos'}
-	grid = SQLFORM.grid(query=query, fields=fields, csv=False,
+	headers = {'hosts.id':   'ID',
+			   'hosts.id_cliente': 'Cliente',
+               'hosts.id_servidor': 'Servidor',
+               'hosts.id_distro': 'Distro',
+               'hosts.nome': 'Nome',
+	           'hosts.servicos': 'Servicos'}
+	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
 
@@ -137,11 +138,12 @@ def servidor_host():
 
 	fields = (db.hosts.id, db.hosts.id_cliente, db.hosts.id_distro, db.distro.img, 
 				db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
-	headers = {'host.id':   'ID',
-               'host.id_servidor': 'Servidor',
-               'host.id_distro': 'Distro',
-               'host.nome': 'Nome',
-	           'host.servicos': 'Servicos'}
+	headers = {'hosts.id':   'ID',
+			   'hosts.id_cliente': 'Cliente',
+               'hosts.id_servidor': 'Servidor',
+               'hosts.id_distro': 'Distro',
+               'hosts.nome': 'Nome',
+	           'hosts.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
@@ -180,11 +182,12 @@ def distro_host():
 
 	fields = (db.hosts.id, db.hosts.id_cliente, db.hosts.id_servidor, db.distro.img, 
 			  db.hosts.ip_chegada, db.hosts.porta_ssh, db.hosts.gateway)
-	headers = {'host.id':   'ID',
-               'host.id_servidor': 'Servidor',
-               'host.id_distro': 'Distro',
-               'host.nome': 'Nome',
-	           'host.servicos': 'Servicos'}
+	headers = {'hosts.id':   'ID',
+				'hosts.id_cliente': 'Cliente',
+               'hosts.id_servidor': 'Servidor',
+               'hosts.id_distro': 'Distro',
+               'hosts.nome': 'Nome',
+	           'hosts.servicos': 'Servicos'}
 	grid = SQLFORM.grid(query=query, fields=fields, headers=headers, csv=False,
 						details=False, searchable=False, maxtextlength=23, links=links, 
 						links_placement='left', editable=False, create=False)
@@ -193,6 +196,7 @@ def distro_host():
 						funcao_ant1=funcao_ant1, nome_atual=nome_atual)
 
 def exemplo():
+	#detalhes
 	filtro = request.vars['f'] #id_host
 	id_cliente = request.vars['c'] #id_cliente
 	nome_ant = request.vars['n'] #nome (asterisk ou agronelli ou debian)
@@ -211,28 +215,57 @@ def exemplo():
 				id_cliente=id_cliente, funcao_ant=funcao_ant, funcao_ant1=funcao_ant1, 
 				nome_ant=nome_ant, nome_ant1=nome_ant1, filtro=filtro)
 
-def edit_host():
-	id_cliente = request.vars['c']
-	nome_ant = request.vars['n']
-	nome_ant1 = request.vars['n1']
-	funcao_ant = request.vars['p']
-	funcao_ant1 = request.vars['p1']
 
-	response.view = 'initial/show_form.html'
-	return dict(form=SQLFORM(db.hosts, request.vars['f']).process(), 
-				id_cliente=id_cliente, funcao_ant=funcao_ant, funcao_ant1=funcao_ant1, 
-					nome_ant=nome_ant, nome_ant1=nome_ant1)
+def edit_host():
+    form = SQLFORM(db.hosts, request.vars['f'], submit_button='Editar', fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
+				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
+				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
+				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais'],
+				labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
+				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
+				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
+				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
+				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'})
+
+    if form.process().accepted:
+       response.flash = 'Editado com sucesso'
+    elif form.errors:
+       response.flash = 'Ops, algo não está correto'
+    else:
+       response.flash = 'Edite os dados do host'
+
+    return response.render("initial/show_form.html", form=form, id_cliente = request.vars['c'], 
+    				nome_ant = request.vars['n'], nome_ant1 = request.vars['n1'], 
+    				funcao_ant = request.vars['p'], funcao_ant1 = request.vars['p1'])
 
 
 @auth.requires_login()
 def interface():
-	response.view = 'initial/show_form2.html'
-	return dict(form=SQLFORM(db.hosts, request.vars['f']).process())
+	#adicionar
+    form = SQLFORM(db.hosts, submit_button='Adicionar', 
+    			fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
+				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
+				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
+				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais'], 
+				labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
+				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
+				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
+				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
+				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'})
+
+    
+    if form.process().accepted:
+       response.flash = 'Inserido com sucesso'
+    elif form.errors:
+       response.flash = 'Ops, algo não está correto'
+    else:
+       response.flash = 'Insira os dados do novo host'
+    return response.render("initial/show_form2.html", form=form)
 
 
 def interfaceee():
 	response.view = 'initial/show_form2.html'
-	return dict(form=SQLFORM(db.hosts).process())
+	return dict(form=SQLFORM(db.hosts, request.vars['f']).process())
 
 
 def home():
@@ -304,9 +337,41 @@ def teste2():
 def soma(x, y):
 	return x + y
 
+def producttt():
+	#adicionar
+	response.view = 'initial/show_form2.html'
+	fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
+				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
+				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
+				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais']
+	labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
+				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
+				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
+				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
+				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'}
+			
+	return dict(form=SQLFORM(db.hosts, fields=fields, labels=labels, submit_button='Adicionar').process())
+
 def product():
-    grid = SQLFORM(db.product)
-    return response.render("initial/show_grid.html", grid=grid)
+	#editar
+	id_cliente = request.vars['c']
+	nome_ant = request.vars['n']
+	nome_ant1 = request.vars['n1']
+	funcao_ant = request.vars['p']
+	funcao_ant1 = request.vars['p1']
+
+	response.view = 'initial/show_form.html'
+	fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
+				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
+				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
+				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais']
+	labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
+				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
+				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
+				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
+				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'}
 
 
- 
+	return dict(form=SQLFORM(db.hosts, request.vars['f'], fields=fields, labels=labels, 
+						submit_button='Editar', showid=False).process(), 
+	id_cliente=id_cliente, funcao_ant=funcao_ant, funcao_ant1=funcao_ant1, nome_ant=nome_ant, nome_ant1=nome_ant1)
