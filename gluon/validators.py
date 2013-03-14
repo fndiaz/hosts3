@@ -408,7 +408,7 @@ class IS_IN_DB(Validator):
         dbset,
         field,
         label=None,
-        error_message='value not in database',
+        error_message='valor não existe na base de dados',
         orderby=None,
         groupby=None,
         distinct=None,

@@ -2907,7 +2907,7 @@ class Auth(object):
                             redirect(otherwise)
                         elif self.settings.allow_basic_login_only or \
                                 basic_accepted or current.request.is_restful:
-                            raise HTTP(403, "Not authorized")
+                            raise HTTP(403, "Not authorizedd")
                         elif current.request.ajax:
                             return A('login', _href=self.settings.login_url)
                         else:

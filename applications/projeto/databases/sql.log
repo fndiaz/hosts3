@@ -902,3 +902,5 @@ CREATE TABLE auth_user(
     reset_password_key CHAR(512),
     registration_id CHAR(512)
 );
+timestamp: 2013-03-11T14:59:51.100349
+ALTER TABLE cliente ADD nome__tmp VARCHAR(3) NOT NULL UNIQUE;

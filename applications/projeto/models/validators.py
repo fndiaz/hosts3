@@ -19,12 +19,12 @@ Distro.img.requires =IS_NOT_EMPTY(error_message=
 						T("valor não pode ser nulo"))
 
 ##Hosts
-Hosts.id_cliente.requires =IS_NOT_EMPTY(error_message=
-						T("valor não pode ser nulo"))
-Hosts.id_servidor.requires =IS_NOT_EMPTY(error_message=
-						T("valor não pode ser nulo"))
-Hosts.id_distro.requires =IS_NOT_EMPTY(error_message=
-						T("valor não pode ser nulo"))
+#Hosts.id_cliente.requires =IS_NOT_EMPTY(error_message=
+#						T("valor não pode ser nulo"))
+#Hosts.id_servidor.requires =IS_NOT_EMPTY(error_message=
+#						T("valor não pode ser nulo"))
+#Hosts.id_distro.requires =IS_NOT_IN_DB(error_message=
+#						T("valor não pode ser nulo"))
 Hosts.nome.requires =IS_NOT_EMPTY(error_message=
 						T("valor não pode ser nulo"))
 Hosts.ip_chegada.requires =IS_NOT_EMPTY(error_message=

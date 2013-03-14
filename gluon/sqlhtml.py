@@ -1783,7 +1783,7 @@ class SQLFORM(FORM):
                 URL.verify(request,user_signature=user_signature,
                            hash_vars=False) or                
                 (request.args(len(args))=='view' and not logged)):
-                session.flash = T('not authorized')
+                session.flash = T('Bem Vindo')
                 redirect(referrer)
 
         def gridbutton(buttonclass='buttonadd', buttontext='Add',

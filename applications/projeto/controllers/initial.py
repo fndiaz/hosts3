@@ -7,8 +7,8 @@ def show_cliente():
 	db.args=Cliente.id.readable=False
 	grid = SQLFORM.grid(Cliente,
 		user_signature=True, searchable=True, csv=False, 
-		paginate=50, details=False, 
-		ignore_rw = True, maxtextlength=26,
+		paginate=50, details=False,  
+		ignore_rw = True, maxtextlength=36,
 		create=auth.has_membership("admin"),
 		editable=auth.has_membership("admin"),
 		deletable=auth.has_membership("admin"),  
