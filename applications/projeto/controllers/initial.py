@@ -337,20 +337,16 @@ def teste2():
 def soma(x, y):
 	return x + y
 
-def producttt():
-	#adicionar
-	response.view = 'initial/show_form2.html'
-	fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
-				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
-				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
-				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais']
-	labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
-				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
-				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
-				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
-				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'}
-			
-	return dict(form=SQLFORM(db.hosts, fields=fields, labels=labels, submit_button='Adicionar').process())
+@auth.requires_login()
+def principal():
+	aqui = db.executesql('SELECT * from cliente order by id desc LIMIT 4;')
+	server = db.executesql('SELECT * from servidor order by id desc LIMIT 4;')
+	hosts = db.executesql('SELECT * from hosts order by id desc LIMIT 6;')
+	
+
+	return response.render("initial/principal.html", aqui=aqui, server=server, hosts=hosts)
+
+	
 
 def product():
 	#editar

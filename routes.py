@@ -14,7 +14,7 @@ routers = dict(
 			'register', 'login', 'exemplo', 'teste1', 'teste2', 
 			'show_cliente', 'show_servidor', 'show_distro', 
 			'cliente_host', 'servidor_host', 'distro_host', 'product', 
-			'edit_host', 'interface']
+			'edit_host', 'interface', 'principal']
     )
 
 )

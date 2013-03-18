@@ -74,3 +74,29 @@ SyntaxError: non-keyword arg after keyword arg
 2013-02-27 16:21:36,606 - Rocket.Errors.Port8000 - WARNING - Listener started when not ready.
 2013-02-27 16:22:04,614 - Rocket.Errors.Port8000 - ERROR - Socket nterface=eth0:8000 in use by other process and it won't share.
 2013-02-27 16:22:07,888 - Rocket.Errors.Port8000 - WARNING - Listener started when not ready.
+2013-03-15 15:35:58,637 - web2py - ERROR - Traceback (most recent call last):
+  File "/var/www/hosts3/gluon/restricted.py", line 212, in restricted
+    exec ccode in environment
+  File "/var/www/hosts3/applications/projeto/views/initial/user.html", line 55, in <module>
+  File "/var/www/hosts3/gluon/globals.py", line 202, in write
+    self.body.write(xmlescape(data))
+  File "/var/www/hosts3/gluon/html.py", line 120, in xmlescape
+    return data.xml()
+  File "/var/www/hosts3/gluon/html.py", line 1494, in xml
+    return DIV.xml(self)
+  File "/var/www/hosts3/gluon/html.py", line 914, in xml
+    (fa, co) = self._xml()
+  File "/var/www/hosts3/gluon/html.py", line 905, in _xml
+    self.components])
+  File "/var/www/hosts3/gluon/html.py", line 120, in xmlescape
+    return data.xml()
+  File "/var/www/hosts3/gluon/languages.py", line 409, in xml
+    return str(self) if self.M else escape(str(self))
+  File "/var/www/hosts3/gluon/languages.py", line 369, in __str__
+    self.T.translate(self.m, self.s))
+  File "/var/www/hosts3/gluon/languages.py", line 886, in translate
+    message = self.params_substitution(message, symbols)
+  File "/var/www/hosts3/gluon/languages.py", line 863, in params_substitution
+    message = message % symbols
+TypeError: not all arguments converted during string formatting
+

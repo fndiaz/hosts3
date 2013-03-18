@@ -28,7 +28,7 @@ auth = Auth(db, controller="initial", function="user")
 #settings
 auth.settings.remember_me_form = False
 auth.settings.formstyle = "divs"
-auth.settings.login_next = URL('initial', 'show_usuario')
+auth.settings.login_next = URL('initial', 'principal')
 auth.settings.logout_next = URL('user', 'login?_next=')
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False

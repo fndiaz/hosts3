@@ -6,7 +6,7 @@
 #########################################################################
 
 response.logo = A(B('hosts',SPAN('3'),''),XML('&trade;&nbsp;'),
-                  _class="brand",_href="")
+                  _class="brand", _href="principal")
 response.title = ' '.join(
     word.capitalize() for word in request.application.split('_'))
 response.subtitle = T('customize me!')
