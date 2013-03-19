@@ -67,7 +67,7 @@ for row in server:
 {{
 for row in hosts:   
 	  }}<tr>
-        <td>{{=row[21]}}</td>
+        <td><a href="{{=URL('initial', 'detalhes_clean', vars=dict(f=row[0]))}}">{{=row[21]}}</a></td>
         <td>{{=row[22]}}</td>
         <td>{{=row[23]}}</td>
         <td>{{=row[24]}}</td>
