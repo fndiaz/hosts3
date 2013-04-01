@@ -100,3 +100,8 @@ SyntaxError: non-keyword arg after keyword arg
     message = message % symbols
 TypeError: not all arguments converted during string formatting
 
+2013-03-28 15:22:34,522 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
+2013-03-28 15:28:26,906 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
+2013-03-28 15:32:06,810 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
+2013-03-28 15:36:33,562 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
+2013-03-28 15:38:51,674 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out

@@ -252,29 +252,16 @@ def interface():
 				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
 				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
 				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'})
-
-    
+   
     if form.process().accepted:
-       response.flash = 'Inserido com sucesso'
+    	host = request.vars
+    	email(host)
+    	response.flash = 'Inserido com sucesso'		
     elif form.errors:
        response.flash = 'Ops, algo não está correto'
     else:
        response.flash = 'Insira os dados do novo host'
     return response.render("initial/show_form2.html", form=form)
-
-
-def interfaceee():
-	response.view = 'initial/show_form2.html'
-	return dict(form=SQLFORM(db.hosts, request.vars['f']).process())
-
-
-def home():
-	nome = "Fernando"
-	response.title = "Titulo home"
-	return dict(nome=nome)
-
-def contact():
-	return "form"
 
 def about():
 	filtro = request.vars['f']
@@ -292,8 +279,8 @@ def about():
 	return response.render("initial/teste.html", grid=grid,)
 
 def user():
-	if request.args(0) == 'register':
-        	db.auth_user.bio.writable = db.auth_user.bio.readable = False
+	#if request.args(0) == 'register':
+    #    	db.auth_user.bio.writable = db.auth_user.bio.readable = False
 	return response.render("initial/user.html", user=auth())
 
 def register():
@@ -309,45 +296,19 @@ def account():
 def download():
 	return response.download(request, db)
 
-def exemploo():
-#	return "teste"
-	return response.render("default/teste.html", nome="fernando", 
-		sobrenome="vieira", lista=["item1", "item2", "item3"])
-
-def teste11():
-	print "Action index"
-	print request.args
-	print request.vars 	
-	print request.post_vars #somente entradas de formulário
-    	print request.get_vars  #somente entradas de url
-    	#nome = request.vars['nome']
-        mensagem = "Bem Vindo"
-        form = "<form action='' method='POST'><input name='nome' id='nome'/><input type='Submit'></form><br>"
-        if 'nome' in request.vars:
-		form = "<p>Bem vindo %(nome)s</p>" % request.vars + form		
-		#mensagem = mensagem + " usuário %(nome)s" % request.vars	#mostrando variavel da url
-        	#mensagem = mensagem + " usuário %s" %str(nome)			#mostrando uma variavel local    
-	return form
-
-def teste2():
-	return "<form><label>Nome</label><input /></form><br><a href='http://www.w3schools.com'>Visit W3Schools</a>"
-	#return dict(nome="fernando")
-	#return response.render("teste.html", dict(nome="fernando"))
-
-def soma(x, y):
-	return x + y
 
 @auth.requires_login()
 def principal():
 	aqui = db.executesql('SELECT * from cliente order by id desc LIMIT 4;')
 	server = db.executesql('SELECT * from servidor order by id desc LIMIT 4;')
 	hosts = db.executesql('SELECT * from hosts order by id desc LIMIT 6;')
-	
+
+	#teste = "teste333"
+	#email(teste)
 
 	return response.render("initial/principal.html", aqui=aqui, server=server, hosts=hosts)
 
 	
-
 def detalhes_clean():
 	filtro = request.vars['f'] #id_host
 		
@@ -358,4 +319,18 @@ def detalhes_clean():
 	detalhes = db.hosts(query)
 
 	
-	return response.render("initial/detalhes_host_clean.html", detalhes=detalhes)	
+	return response.render("initial/detalhes_host_clean.html", detalhes=detalhes)
+
+def email(host):
+	if auth.has_membership('voip'):
+		mail.send(
+			to="fndiaz02@gmail.com",
+			subject="host adicionado",
+			message="<html>Um novo host foi adicionado pelo usuário %s <br>nome: %s <br>vpn: %s<br><br>É preciso fazer a instalação do client zabbix e bacula</html>" % (auth.user.first_name, host.nome, host.ip_chegada,)
+			)
+	elif auth.has_membership('internet'):
+		mail.send(
+			to="fernando@ad2.com.br",
+			subject="host adicionado",
+			message="<html>Um novo host foi adicionado pelo usuário %s <br>nome: %s <br>vpn: %s<br><br>É preciso fazer a instalação do client zabbix e bacula</html>" % (auth.user.first_name, host.nome, host.ip_chegada,)
+			)

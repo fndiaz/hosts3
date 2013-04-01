@@ -1,6 +1,7 @@
 Cliente = db.define_table("cliente",
       Field("nome", notnull=True, unique=True),
       Field("email"),
+      Field("gtalk"),
       #auth.signature
       format="%(nome)s")
 

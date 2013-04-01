@@ -41,9 +41,9 @@ auth.messages.invalid_login = 'Login Inválido'
 
 #mail
 mail = auth.settings.mailer
-mail.settings.server = "mail.ad2.com.br"
-mail.settings.sender = "fernando@ad2.com.br"
-mail.settings.login = "fernando@ad2.com.br:123456"
+mail.settings.server = "mail.ad2.com.br:587"
+mail.settings.sender = "smtp_avisos@ad2.com.br"
+mail.settings.login = "smtp_avisos@ad2.com.br:"
 
 
 #signals
