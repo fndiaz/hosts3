@@ -105,3 +105,4 @@ TypeError: not all arguments converted during string formatting
 2013-03-28 15:32:06,810 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
 2013-03-28 15:36:33,562 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
 2013-03-28 15:38:51,674 - web2py - WARNING - Mail.send failure:[Errno 110] Connection timed out
+2013-04-01 15:11:55,386 - web2py - WARNING - Mail.send failure:[Errno -2] Name or service not known

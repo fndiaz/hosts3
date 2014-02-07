@@ -104,7 +104,7 @@ def cliente_host():
 						links_placement='left', editable=False, create=False)
 
 	return response.render("initial/show_grid2.html", grid=grid, nome_ant1=nome_ant1, 
-						funcao_ant1=funcao_ant1, nome_atual=nome_atual)
+			funcao_ant1=funcao_ant1, nome_atual=nome_atual)
 
 @auth.requires_login()
 def servidor_host():
@@ -217,15 +217,26 @@ def detalhes_nav():
 
 
 def edit_host():
-    form = SQLFORM(db.hosts, request.vars['f'], submit_button='Editar', fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
-				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
-				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
-				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais'],
-				labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
-				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
-				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
-				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
-				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'})
+    form = SQLFORM(db.hosts, request.vars['f'], submit_button='Editar')
+
+    query 	=	db.hosts.id == request.vars['f']
+    arq		= 	db(query).select(db.hosts.upload, db.hosts.upload2, db.hosts.upload3)
+    arq		=	arq[0]
+
+    if arq.upload == '' or arq.upload3 == None:
+    	print '1 vazio'
+    	arq.upload = None
+    if arq.upload2 == '' or arq.upload3 == None:
+    	print '2 vazio'
+    	arq.upload2 = None
+    if arq.upload3 == '' or arq.upload3 == None:
+    	print '3 vazio'
+    	arq.upload3 = None
+	print '------'
+	print ":%s:" %(arq.upload)
+	print ":%s:" %(arq.upload2)
+    print ":%s:" %(arq.upload3)
+    print arq    
 
     if form.process().accepted:
        response.flash = 'Editado com sucesso'
@@ -234,24 +245,16 @@ def edit_host():
     else:
        response.flash = 'Edite os dados do host'
 
-    return response.render("initial/show_form.html", form=form, id_cliente = request.vars['c'], 
-    				nome_ant = request.vars['n'], nome_ant1 = request.vars['n1'], 
+    return response.render("initial/form_edit_host.html", form=form, id_cliente = request.vars['c'], 
+    			arq=arq, nome_ant = request.vars['n'], nome_ant1 = request.vars['n1'], 
     				funcao_ant = request.vars['p'], funcao_ant1 = request.vars['p1'])
 
 
 @auth.requires_login()
 def interface():
 	#adicionar
-    form = SQLFORM(db.hosts, submit_button='Adicionar', 
-    			fields = ['id_cliente', 'id_servidor', 'id_distro', 'servicos',
-				'if1', 'ip1', 'masc1', 'obs1', 'if2', 'ip2', 'masc2', 'obs2',
-				'if3', 'ip3', 'masc3', 'obs3', 'if4', 'ip4', 'masc4', 'obs4',
-				'nome', 'ip_chegada', 'porta_ssh', 'gateway', 'rotas', 'obs_gerais'], 
-				labels = {'id_cliente':'Cliente', 'id_servidor':'Servidor', 'id_distro':'Distro',
-				'if1':'Interface 1', 'ip1':'IP', 'masc1':'Máscara', 'obs1':'Obs',
-				'if2':'Interface 2', 'ip2':'IP', 'masc2':'Máscara', 'obs2':'Obs',
-				'if3':'Interface 3', 'ip3':'IP', 'masc3':'Máscara', 'obs3':'Obs',
-				'if4':'Interface 4', 'ip4':'IP', 'masc4':'Máscara', 'obs4':'Obs'})
+    form = SQLFORM(db.hosts, submit_button='Adicionar')
+    #form.element(_name='servicos')['_rows']='8'
    
     if form.process().accepted:
     	host = request.vars
@@ -261,7 +264,7 @@ def interface():
        response.flash = 'Ops, algo não está correto'
     else:
        response.flash = 'Insira os dados do novo host'
-    return response.render("initial/show_form2.html", form=form)
+    return response.render("initial/form_add_host.html", form=form)
 
 def about():
 	filtro = request.vars['f']
@@ -278,13 +281,29 @@ def about():
 
 	return response.render("initial/teste.html", grid=grid,)
 
+def get_json():
+	lista = db.executesql("select nome from cliente;")
+	lista2 = []
+	for lis in lista:
+		print lis[0]
+		lista2.append(lis[0])
+	print lista2
+	return response.json(lista2)
+
+def busca_rap():
+	print request.vars['nome']
+	nome = request.vars['nome']
+	redirect(URL('show_cliente', vars=dict(keywords=nome)))
+
 def user():
 	#if request.args(0) == 'register':
     #    	db.auth_user.bio.writable = db.auth_user.bio.readable = False
 	return response.render("initial/user.html", user=auth())
 
 def register():
-	return auth.register()
+	grid = SQLFORM.grid(db.hosts, editable=True)
+	return response.render("initial/show_grid.html", grid=grid)
+	#return auth.register()
 
 def login():
         return auth.login()
@@ -305,6 +324,12 @@ def principal():
 
 	#teste = "teste333"
 	#email(teste)
+	#mail.send(
+    #	to="fndiaz02@gmail.com",
+    #	subject="host adicionado",
+    #	message="<html>Um novo host foi adicionado pelo usuário</html>"
+    #	)
+
 
 	return response.render("initial/principal.html", aqui=aqui, server=server, hosts=hosts)
 

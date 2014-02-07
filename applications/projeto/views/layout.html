@@ -98,8 +98,11 @@
                     <small>{{=response.title or ''}}</small>
                 </h1>
             </div>
+            {{block pesquisa}}
+            {{end}}
         </div>
     </header>
+
 
     <section id="main" class="main row">
         {{if left_sidebar_enabled:}}

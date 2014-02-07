@@ -3,6 +3,7 @@ Cliente = db.define_table("cliente",
       Field("email"),
       Field("gtalk"),
       #auth.signature
+      migrate=False,
       format="%(nome)s")
 
 Servidor = db.define_table("servidor",
@@ -42,6 +43,9 @@ Hosts = db.define_table("hosts",
       Field("gateway", notnull=True),
       Field("rotas", "text"),
       Field("obs_gerais", "text"),
+      Field("upload", "upload", uploadfolder='/var/www/hosts3/applications/projeto/static/arq', autodelete=True),
+      Field("upload2", "upload", uploadfolder='/var/www/hosts3/applications/projeto/static/arq', autodelete=True),
+      Field("upload3", "upload", uploadfolder='/var/www/hosts3/applications/projeto/static/arq', autodelete=True),
       format="%(nome)s")
 
 Interface = db.define_table("interface",

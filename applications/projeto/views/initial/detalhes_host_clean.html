@@ -115,6 +115,7 @@
 <li class="active"><a href="#pane1" data-toggle="tab">Serviços</a></li>
 <li><a href="#pane2" data-toggle="tab">Observações Gerais</a></li>
 <li><a href="#pane3" data-toggle="tab">Rotas</a></li>
+<li><a href="#pane3" data-toggle="tab">Arquivo</a></li>
 </ul>
 
 <div class="tab-content"><!-- /.tab-content -->
@@ -133,6 +134,82 @@
 <div id="pane3" class="tab-pane">
 <div class="well">
 <p>{{=detalhes.hosts.rotas}}</p>
+</div>
+</div>
+
+<div id="pane4" class="tab-pane">
+<div class="well">
+{{
+	if detalhes.hosts.upload != None:
+	if detalhes.hosts.upload != '':
+	var=detalhes.hosts.upload
+	var2=var.split('.')[4].lower()
+	print var2}}
+	
+
+
+	{{if var2 == 'jpg' or var2 == 'png':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/jpeg.png"></a>
+	
+	{{elif var2 == 'pdf':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/pdf.png"></a>
+
+	{{elif var2 != '':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/doc.png"></a>
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+
+{{
+	if detalhes.hosts.upload2 != None:
+	if detalhes.hosts.upload2 != '':
+	var=detalhes.hosts.upload2
+	var2=var.split('.')[4].lower()
+	print var2}}
+	
+
+
+	{{if var2 == 'jpg' or var2 == 'png':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload2}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/jpeg.png"></a>
+	
+	{{elif var2 == 'pdf':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload2}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/pdf.png"></a>
+
+	{{elif var2 != '':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload2}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/doc.png"></a>
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+
+{{
+	if detalhes.hosts.upload3 != None:
+	if detalhes.hosts.upload3 != '':
+	var=detalhes.hosts.upload3
+	var2=var.split('.')[4].lower()
+	print var2}}
+	
+
+
+	{{if var2 == 'jpg' or var2 == 'png':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload3}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/jpeg.png"></a>
+	
+	{{elif var2 == 'pdf':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload3}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/pdf.png"></a>
+
+	{{elif var2 != '':}}
+	<a href="{{=URL(a='projeto', c='static', f='arq')}}/{{=detalhes.hosts.upload3}}" target="_blank"><img src="{{=URL(a='projeto', c='static', f='images')}}/doc.png"></a>
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+	{{pass}}
+
+
+
 </div>
 </div>
     

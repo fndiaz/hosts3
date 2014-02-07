@@ -12,7 +12,7 @@ routers = dict(
 	controllers=['initial', 'manager'],
         functions=['home', 'contact', 'about', 'user', 'download', 'account', 
 			'register', 'login', 'exemplo', 'teste1', 'teste2', 
-			'show_cliente', 'show_servidor', 'show_distro', 
+			'show_cliente', 'show_servidor', 'show_distro', 'get_json', 'busca_rap', 
 			'cliente_host', 'servidor_host', 'distro_host', 'product', 
 			'edit_host', 'interface', 'principal', 'detalhes_clean', 'detalhes_nav']
     )

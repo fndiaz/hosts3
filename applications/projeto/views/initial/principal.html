@@ -1,5 +1,11 @@
 {{extend 'layout.html'}}
 
+{{block pesquisa}}
+<form action="http://127.0.0.1:8000/initial/busca_rap" method="POST">
+<input id="redd" name="nome" class="span3" type="text" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source=""> 
+<input type="submit" name"Pesquisa">
+</form>
+{{end}}
 
 {{block center}}
 <div class="span5" >
@@ -84,6 +90,24 @@ for row in hosts:
 claro = '900'
 tim = '500'
 }}
+
+
+<script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+<script>
+$(document).ready(function(){
+
+$.ajax({
+method: "get",
+url: "initial/get_json",
+dataType: "json",
+success: function(nome){
+  alert(nome);
+  $('#redd').typeahead({source: nome});
+}
+});
+
+});
+</script>
 
 
 {{end}}
